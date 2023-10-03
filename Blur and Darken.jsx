@@ -46,16 +46,20 @@ function myScript(thisObj) {
        lightSlider.maxvalue = 100;
        lightSlider.value = 0;
 
-        var lightSliderText = lightSliderGroup.add("statictext",undefined,"0");
+        var lightSliderText = lightSliderGroup.add("edittext",undefined,"0");
         lightSliderText.preferredSize=[50,20];
 
         // ? Changes the Brightness and the value slider on user activation
         lightSlider.onChanging = function(){
         var lightSliderValue = Math.ceil(lightSlider.value)
         lightSliderText.text = lightSliderValue;
-        sliderValue = lightSliderText.text;
-        changeBrightnessValue(layerDropdown.selection.text, Math.ceil(lightSlider.value));
+        changeBrightnessValue(layerDropdown.selection.text, Math.ceil(lightSliderValue));
       };
+
+      lightSliderText.onChanging = function() {
+        lightSlider.value = lightSliderText.text;
+        changeBrightnessValue(layerDropdown.selection.text, lightSliderText.text);
+      }
       // ? ================================
 
 
@@ -69,7 +73,7 @@ function myScript(thisObj) {
        blurSlider.maxvalue = 100;
        blurSlider.value = 0;
 
-       var blurSliderText = blurSliderGroup.add("statictext",undefined,"0");
+       var blurSliderText = blurSliderGroup.add("edittext",undefined,"0");
        blurSliderText.preferredSize=[50,20];
 
        // ? Changes the Brightness and the value slider on user activation
@@ -78,6 +82,12 @@ function myScript(thisObj) {
         blurSliderText.text = blurSliderValue;
         changeBlurrinessValue(layerDropdown.selection.text, Math.ceil(blurSlider.value))
       };
+
+
+      blurSliderText.onChanging = function() {
+        blurSlider.value = blurSliderText.text;
+        changeBlurrinessValue(layerDropdown.selection.text, blurSliderText.text);
+      }
         // ? ================================
 
 
